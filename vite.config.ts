@@ -6,8 +6,11 @@ import {defineConfig, loadEnv} from 'vite';
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   const isProduction = mode === 'production';
+  // For GitHub Pages deployment: https://username.github.io/tracker/
+  const baseUrl = process.env.GITHUB_PAGES === 'true' ? '/tracker/' : '/';
 
   return {
+    base: baseUrl,
     plugins: [react(), tailwindcss()],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
