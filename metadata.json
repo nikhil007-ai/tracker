@@ -1,0 +1,6 @@
+{
+  "name": "GhostTrack: Ethical Hacking Tracker",
+  "description": "A local-first, terminal-styled tracker for ethical hackers to manage skills, bug bounties, and daily missions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

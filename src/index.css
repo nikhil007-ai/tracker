@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@400;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-cyber: "Orbitron", sans-serif;
+
+  --color-hacker-green: #00ff00;
+  --color-hacker-cyan: #00f3ff;
+  --color-hacker-pink: #ff00ff;
+  --color-hacker-dark: #050510;
+  --color-hacker-border: #00f3ff;
+  --color-hacker-bg-soft: rgba(0, 243, 255, 0.1);
+  
+  --shadow-hacker-glow: 0 0 15px rgba(0, 243, 255, 0.4);
+  --shadow-pink-glow: 0 0 15px rgba(255, 0, 255, 0.4);
+  --shadow-hacker-text: 0 0 5px rgba(0, 243, 255, 0.5);
+}
+
+@layer base {
+  body {
+    @apply bg-[#050510] text-hacker-cyan font-mono selection:bg-hacker-cyan selection:text-black antialiased overflow-x-hidden;
+    perspective: 1000px;
+  }
+}
+
+.perspective-container {
+  perspective: 2000px;
+}
+
+.hacker-card {
+  @apply bg-black/40 backdrop-blur-md border border-hacker-cyan p-4 relative flex flex-col transition-all duration-300;
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  perspective: 1000px;
+}
+
+.hacker-card::before {
+  content: '';
+  @apply absolute -inset-[1px] bg-gradient-to-br from-hacker-cyan via-transparent to-hacker-pink opacity-20 -z-10;
+}
+
+.hacker-card:hover {
+  @apply border-hacker-pink shadow-pink-glow;
+  transform: translateY(-5px) rotateX(4deg) rotateY(-4deg);
+}
+
+.hacker-card-header {
+  @apply text-sm border-b border-hacker-cyan pb-2 mb-4 bg-hacker-cyan/10 px-2 font-bold uppercase tracking-[0.2em] font-cyber;
+}
+
+.hacker-input {
+  @apply bg-black/60 border border-hacker-cyan text-hacker-cyan p-2 focus:outline-none focus:bg-hacker-cyan/20 w-full transition-colors text-xs placeholder:opacity-30;
+}
+
+.hacker-btn {
+  @apply border border-hacker-cyan px-4 py-2 hover:bg-hacker-cyan hover:text-black transition-all cursor-pointer uppercase text-[10px] font-black tracking-widest font-cyber shadow-[4px_4px_0px_#ff00ff] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px];
+}
+
+.hacker-btn-pink {
+  @apply border border-hacker-pink px-4 py-2 hover:bg-hacker-pink hover:text-black transition-all cursor-pointer uppercase text-[10px] font-black tracking-widest font-cyber shadow-[4px_4px_0px_#00f3ff] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] text-hacker-pink;
+}
+
+.hacker-progress-container {
+  @apply border border-hacker-cyan/30 p-0.5 h-4 w-full bg-black/80;
+}
+
+.hacker-progress-bar {
+  @apply bg-hacker-cyan h-full shadow-hacker-glow transition-all duration-500;
+}
+
+/* Custom scrollbar for hacker look */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #050510;
+}
+::-webkit-scrollbar-thumb {
+  background: #004455;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00f3ff;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline {
+  @apply fixed inset-0 pointer-events-none z-50 overflow-hidden;
+}
+
+.scanline::after {
+  content: "";
+  @apply absolute inset-0 bg-gradient-to-b from-transparent via-hacker-cyan/5 to-transparent h-20 w-full;
+  animation: scanline 8s linear infinite;
+}
