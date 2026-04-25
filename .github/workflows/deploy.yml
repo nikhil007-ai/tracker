@@ -17,22 +17,22 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'   # 🔥 upgrade from 18
+          cache: 'npm'
       
-      - name: Clean npm cache
-        run: npm cache clean --force
-      
-      - name: Install dependencies
-        run: npm install
+      - name: Clean install (fix Tailwind oxide)
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install --include=optional
+          npm rebuild
       
       - name: Build project
         run: npm run build
         env:
           GITHUB_PAGES: 'true'
-          # VITE_GEMINI_API_KEY is optional - app works without it
       
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: :contentReference[oaicite:1]{index=1}@v3
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
